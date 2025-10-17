@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">العودة إلى القائمة الرئيسية / Back to Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="text-center mb-4">Filter Events</h1>
+        <div class="filters container">
+            <div class="row justify-content-center g-2">
+                <div class="col-md-3">
+                    <select id="typeFilter" class="form-select">
+                        <option>All</option>
+                        <option>Adventure</option>
+                        <option>Sports</option>
+                        <option>Culture</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="ageFilter" class="form-select">
+                        <option>All</option>
+                        <option>5+</option>
+                        <option>10+</option>
+                        <option>All Ages</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="priceFilter" class="form-select">
+                        <option>Default</option>
+                        <option>Lowest First</option>
+                        <option>Highest First</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button onclick="applyFilters()" class="btn w-100">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="eventsList" class="container"></div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let events = JSON.parse(localStorage.getItem('events')) || [
+            { id: 1, name: 'Desert Safari', type: 'Adventure', age: '10+', price: 200 },
+            { id: 2, name: 'Football Match', type: 'Sports', age: 'All Ages', price: 100 },
+            { id: 3, name: 'Cultural Festival', type: 'Culture', age: 'All Ages', price: 150 },
+            { id: 4, name: 'Hiking Trip', type: 'Adventure', age: '5+', price: 80 },
+            { id: 5, name: 'Tennis Tournament', type: 'Sports', age: '10+', price: 300 }
+        ];
+
+        function displayEvents(filteredEvents) {
+            const list = document.getElementById('eventsList');
+            list.innerHTML = '<div class="row g-3"></div>';
+            const row = list.querySelector('.row');
+            filteredEvents.forEach(event => {
+                const div = document.createElement('div');
+                div.className = 'col-md-4 event-card';
+                div.innerHTML = `
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="${event.name}">
+                    <h3>${event.name}</h3>
+                    <p>Type: ${event.type} | Age: ${event.age} | Price: ${event.price} SAR</p>
+                    <a href="book.html?event=${encodeURIComponent(event.name)}" class="btn">Book Now</a>
+                `;
+                row.appendChild(div);
+            });
+        }
+
+        function applyFilters() {
+            let filtered = [...events];
+            const type = document.getElementById('typeFilter').value;
+            const age = document.getElementById('ageFilter').value;
+            const priceSort = document.getElementById('priceFilter').value;
+
+            if (type !== 'All') filtered = filtered.filter(e => e.type === type);
+            if (age !== 'All') filtered = filtered.filter(e => e.age === age);
+
+            if (priceSort === 'Lowest First') filtered.sort((a, b) => a.price - b.price);
+            if (priceSort === 'Highest First') filtered.sort((a, b) => b.price - a.price);
+
+            displayEvents(filtered);
+        }
+
+        window.onload = () => displayEvents(events);
+    </script>
+</body>
+</html>

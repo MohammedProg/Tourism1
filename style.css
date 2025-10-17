@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap'); /* Arabic font support */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #222; background: linear-gradient(135deg, #d8e8f8, #c8d8f0, #b8c8d0); animation: bgShift 10s ease infinite; }
+.arabic { font-family: 'Cairo', sans-serif; }
+@keyframes bgShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+/* Header & Nav */
+header { background: linear-gradient(to right, #0056b3, #003d80); color: white; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,86,179,0.4); }
+nav ul { list-style: none; display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+nav li { animation: slideIn 0.5s ease-out; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+nav a { color: white; text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 8px; transition: all 0.3s; font-weight: bold; background: rgba(255,255,255,0.3); text-shadow: 1px 1px 2px rgba(0,0,0,0.5); min-width: fit-content; }
+nav a:hover { background: rgba(255,255,255,0.5); transform: scale(1.05); }
+.btn { background: linear-gradient(#1e8c3a, #179c78); color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 25px; transition: all 0.3s; box-shadow: 0 4px 8px rgba(30,140,58,0.3); display: inline-block; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(30,140,58,0.4); }
+
+/* Main Content */
+main { max-width: 1200px; margin: 1rem auto; padding: 0 1rem; }
+
+/* Hero: Taller Images, Clearer Captions */
+.hero { text-align: center; padding: 0; color: white; position: relative; overflow: hidden; margin-bottom: 2rem; }
+.hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); animation: overlayPulse 3s ease infinite; z-index: 1; } /* Darker overlay for text pop */
+@keyframes overlayPulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 0.8; } }
+.carousel-caption { background: rgba(0,0,0,0.8); padding: 2rem; border-radius: 15px; max-width: 80%; margin: 0 auto; box-shadow: 0 4px 20px rgba(0,0,0,0.5); } /* Solid bg, shadow for clarity */
+.hero h1 { font-size: 3.2rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.9); color: white; animation: fadeInUp 1s ease-out; } /* Bigger, whiter */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.hero p { font-size: 1.5rem; animation: fadeInUp 1s ease-out 0.3s both; color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); } /* Whiter, shadowed */
+
+/* Forms: Compact, Better Spacing */
+form { background: rgba(240,240,240,0.98); padding: 2rem; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); max-width: 450px; margin: 1rem auto; backdrop-filter: blur(10px); animation: formSlide 0.8s ease-out; }
+@keyframes formSlide { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+input, select, textarea, button { width: 100%; padding: 0.9rem; margin: 0.5rem 0; border: 2px solid #ccc; border-radius: 8px; transition: all 0.3s; font-size: 1rem; }
+input:focus, select:focus, textarea:focus { border-color: #0056b3; box-shadow: 0 0 10px rgba(0,86,179,0.2); transform: scale(1.02); }
+button { background: linear-gradient(#0056b3, #003d80); color: white; border: none; cursor: pointer; font-weight: bold; animation: pulse 2s infinite; margin-top: 0.5rem; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,86,179,0.7); } 70% { box-shadow: 0 0 0 10px rgba(0,86,179,0); } 100% { box-shadow: 0 0 0 0 rgba(0,86,179,0); } }
+#message { margin-top: 1rem; padding: 1rem; border-radius: 8px; animation: messagePop 0.5s ease-out; text-align: center; }
+@keyframes messagePop { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+.success { background: linear-gradient(#b8d8c0, #a8c8b0); color: #0f4c1a; border: 1px solid #a8c8b0; }
+.error { background: linear-gradient(#e8c7ca, #e5b6ba); color: #621824; border: 1px solid #e5b6ba; }
+
+/* Events & Cards: Tighter Grid */
+.filters { display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; animation: fadeIn 1s ease-out; justify-content: center; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.event-card, .feature-card { background: linear-gradient(145deg, #f0f0f0, #e0e0e0); padding: 1.5rem; margin: 0.5rem; border-radius: 15px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: center; transition: all 0.4s; animation: cardFloat 3s ease-in-out infinite; }
+@keyframes cardFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+.event-card:hover, .feature-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 10px 25px rgba(0,86,179,0.2); }
+#eventsList { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; padding: 1rem 0; }
+
+/* Images: Strict 16:9, Fallback Color */
+img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; transition: transform 0.3s; aspect-ratio: 16 / 9; background: linear-gradient(#c8d8f0, #b8c8d0); }
+img:hover { transform: scale(1.05); }
+
+/* Bilingual & Lists */
+.arabic { direction: rtl; }
+.arabic nav ul { flex-direction: row-reverse; }
+ul { list-style: none; padding: 0; }
+li { background: linear-gradient(#e8e9ea, #d9dcde); padding: 1rem; margin: 0.5rem 0; border-radius: 8px; transition: background 0.3s; }
+li:hover { background: linear-gradient(#d9dcde, #cad0d2); }
+.welcome-user { background: linear-gradient(#b8d8c0, #a8c8b0); padding: 1.5rem; border-radius: 10px; text-align: center; animation: welcomeBounce 0.6s ease-out; margin: 1rem 0; }
+@keyframes welcomeBounce { 0%, 20%, 60%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 80% { transform: translateY(-5px); } }
+
+/* Responsive */
+@media (max-width: 768px) { nav ul { flex-direction: column; align-items: center; gap: 0.5rem; } .filters { flex-direction: column; width: 100%; } .hero h1 { font-size: 2rem; } form { padding: 1.5rem; margin: 0.5rem; } .carousel-caption { max-width: 95%; padding: 1rem; } }
