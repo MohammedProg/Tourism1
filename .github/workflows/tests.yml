@@ -1,0 +1,43 @@
+name: Simple Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Functional test - check main page content
+        run: |
+          if [ -f "index.html" ]; then
+            echo "index.html found"
+          else
+            echo "FAIL! index.html not found"
+            exit 1
+          fi
+
+          if grep -q "Tourism" index.html; then
+            echo "Success! Functional test passed: 'Tourism' text found in index.html"
+          else
+            echo "FAIL! Functional test failed: 'Tourism' text not found in index.html"
+            exit 1
+          fi
+
+      - name: Non-functional test - check index.html size
+        run: |
+          size=$(stat -c%s "index.html")
+          echo "index.html size: $size bytes"
+
+          if [ "$size" -lt 200000 ]; then
+            echo "Success! Non-functional test passed: file size is acceptable (< 200KB)"
+          else
+            echo "FAIL! Non-functional test failed: index.html is too large"
+            exit 1
+          fi
